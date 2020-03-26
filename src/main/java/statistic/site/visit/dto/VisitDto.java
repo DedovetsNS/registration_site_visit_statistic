@@ -7,12 +7,13 @@ import statistic.site.visit.dto.groups.Add;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
+import java.io.Serializable;
 import java.util.Date;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class VisitDto {
+public class VisitDto implements Serializable {
 
     @Null(groups = {Add.class})
     private Long id;

@@ -32,7 +32,7 @@ public class StatisticRegistrationController {
 
     @PostMapping
     public DayStatisticDto addVisit(@RequestBody @Validated({Add.class}) VisitDto visitDto) {
-        visitService.registerVisit(visitDto);
+        visitService.registerVisitInQueue(visitDto);
         return statisticService.getStatisticPerDay(new Date());
     }
 
