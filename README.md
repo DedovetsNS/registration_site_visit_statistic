@@ -1,18 +1,20 @@
 # Application for recording and tracking the number of site visitors     
 ### EndPoints
 /statistic/[POST] - for registration new visits. Input data in JSON format, ID of the user and the page he visited.
-Example:  {
-                "userId": "2",
-                "pageId": "1"
-           }
+Example: 
+{
+  "userId": "2",
+  "pageId": "1"
+}
            
 Response - total number of visitors per day and unique one.
 
 /statistic/[GET] - to get statistics for the period. Input data in JSON format, two dates indicating the time period in format "dd-MM-yyyy HH:mm:ss".
-Example:  {
-            "dateFrom": "25-03-2020 08:11:53",
-            "dateTo": "27-03-2020 08:11:53"
-         }
+Example: 
+{
+  "dateFrom": "25-03-2020 08:11:53",
+  "dateTo": "27-03-2020 08:11:53"
+ }
 
 ### Used technologies
 Java 11, Spring Boot, PostgresQL, Spring Data, REST Api, Git, Gradle, Lombok, RabbitMQ, Flyway.
