@@ -2,7 +2,9 @@ package statistic.site.visit.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import statistic.site.visit.dto.VisitorsPerDayDto;
+import statistic.site.visit.dto.DayStatisticDto;
+import statistic.site.visit.dto.PeriodDto;
+import statistic.site.visit.dto.PeriodStatisticDto;
 import statistic.site.visit.repository.VisitRepository;
 
 import java.util.Calendar;
@@ -19,16 +21,31 @@ public class StatisticService {
         this.visitRepository = visitRepository;
     }
 
-    public VisitorsPerDayDto getVisitorsPerDay(Date date) {
-        VisitorsPerDayDto visitorsPerDayDto = new VisitorsPerDayDto();
+    public DayStatisticDto getStatisticPerDay(Date date) {
+        DayStatisticDto dayStatisticDto = new DayStatisticDto();
         Date dateTo = getEndOfDay(date);
         Date dateFrom = getStartOfDay(date);
-        visitorsPerDayDto.setCountAllVisit(
-                visitRepository.findCountVisitsBetweenDates(dateFrom, dateTo));
-        visitorsPerDayDto.setCountUniqueVisit(
-                visitRepository.findCountUniqueVisitsBetweenDates(dateFrom, dateTo));
-        return visitorsPerDayDto;
+        dayStatisticDto.setCountAllVisit(
+                visitRepository.countVisitByDateBetween(dateFrom, dateTo));
+        dayStatisticDto.setCountUniqueVisit(
+                visitRepository.countUniqueVisitBetweenDates(dateFrom, dateTo));
+        return dayStatisticDto;
     }
+
+    public PeriodStatisticDto getStatisticPerPeriod(PeriodDto periodDto) {
+        PeriodStatisticDto periodStatisticDto = new PeriodStatisticDto();
+        Date dateTo = periodDto.getDateTo();
+        Date dateFrom = periodDto.getDateFrom();
+        periodStatisticDto.setCountAllVisit(
+                visitRepository.countVisitByDateBetween(dateFrom, dateTo));
+        periodStatisticDto.setCountUniqueVisit(
+                visitRepository.countUniqueVisitBetweenDates(dateFrom, dateTo));
+        periodStatisticDto.setCountRegularUser(
+                visitRepository.countRegularUserBetweenDates(dateFrom, dateTo));
+
+        return periodStatisticDto;
+    }
+
 
     private Date getStartOfDay(Date date) {
         GregorianCalendar calendar = new GregorianCalendar();
@@ -49,5 +66,4 @@ public class StatisticService {
         calendar.set(Calendar.MILLISECOND, 999);
         return calendar.getTime();
     }
-
 }

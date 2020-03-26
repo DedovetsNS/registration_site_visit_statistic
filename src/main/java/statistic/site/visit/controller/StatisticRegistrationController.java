@@ -5,8 +5,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import statistic.site.visit.dto.DayStatisticDto;
+import statistic.site.visit.dto.PeriodDto;
+import statistic.site.visit.dto.PeriodStatisticDto;
 import statistic.site.visit.dto.VisitDto;
-import statistic.site.visit.dto.VisitorsPerDayDto;
 import statistic.site.visit.dto.groups.Add;
 import statistic.site.visit.service.StatisticService;
 import statistic.site.visit.service.VisitService;
@@ -28,15 +30,14 @@ public class StatisticRegistrationController {
         this.statisticService = statisticService;
     }
 
-
     @PostMapping
-    public VisitorsPerDayDto addVisit(@RequestBody @Validated({Add.class}) VisitDto visitDto) {
+    public DayStatisticDto addVisit(@RequestBody @Validated({Add.class}) VisitDto visitDto) {
         visitService.registerVisit(visitDto);
-        return statisticService.getVisitorsPerDay(new Date());
+        return statisticService.getStatisticPerDay(new Date());
     }
 
     @GetMapping
-    public VisitorsPerDayDto addVisit() {
-        return statisticService.getVisitorsPerDay(new Date());
+    public PeriodStatisticDto getPeriodStatistic(@RequestBody @Validated({Add.class}) PeriodDto periodDto) {
+        return statisticService.getStatisticPerPeriod(periodDto);
     }
 }

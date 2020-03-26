@@ -7,7 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class VisitorsPerDayDto {
+public class PeriodStatisticDto {
+
     Long countAllVisit;
     Long countUniqueVisit;
+    Long countRegularUser;
 }
