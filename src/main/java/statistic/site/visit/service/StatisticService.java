@@ -42,7 +42,6 @@ public class StatisticService {
                 visitRepository.countUniqueVisitBetweenDates(dateFrom, dateTo));
         periodStatisticDto.setCountRegularUser(
                 visitRepository.countRegularUserBetweenDates(dateFrom, dateTo));
-
         return periodStatisticDto;
     }
 
